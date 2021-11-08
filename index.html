@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnho</title>
+    <script src="vue.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <img src="assets/carrinho.svg" alt="">
+        </header>
+
+        <section class="modal" v-if="produto" @click="fecharModal">
+            <div class="modal_container">
+                <div class="modal_img">
+                    <img :src="produto.img" :alt="produto.nome" class="produto_img"> 
+                </div>
+                <div class="modal_dados">
+                <button class="modal_fechar" @click="produto = false">X</button>
+                    <span class="modal_preco">{{produto.preco}}</span>
+                    <h2 class="produto_titulo">{{produto.nome}}</h2>
+                    <p>{{produto.descricao}}</p>
+                    <button class="modal_btn">Adicionar Item</button>
+                    <div class="avaliacoes">
+                        <h2 class="avaliacao_subtitulo">Avaliação</h2>
+                        <ul>
+                            <li v-for="avaliacao in produto.avaliacoes" >
+                             <p class="avaliacao_usuario">{{avaliacao.nome}} | {{avaliacao.estrela}} estrelas</p>
+                             <p class="avaliacao_descricao">{{avaliacao.descricao}}</p>                               
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+       <section>
+           <div class="produtos">
+                <div v-for="produto in produtos" @click="fetchProduto(produto.id)" :key="produto.id" class="produto">
+                    <img :src="produto.img" :alt="produto.nome" class="produto_img"> 
+                    <div class="produto_info">
+                        <span class="produto_preco">{{produto.preco | numeroPreco}}</span>
+                        <h2 class="produto_titulo">{{produto.nome}}</h2>
+                    </div>               
+                </div>
+           </div>
+       </section>
+    </div>
+    <script src="app.js"></script>
+
+</body>
+</html>
